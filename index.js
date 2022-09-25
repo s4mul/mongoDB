@@ -4,7 +4,7 @@ const port = 3000;
 const mongoose = require('mongoose');
 const { blackboard } = require('./Schema');
 //const bodyParser = require('body-parser');
-mongoose.connect('mongodb+srv://Sunwoo:s4mulsun@hellomongo.j8xwpyd.mongodb.net/test', {useNewUrlParser: true, useUnifiedTopology: true} ).then(()=>console.log('mongoDB Connected...'))
+mongoose.connect('', {useNewUrlParser: true, useUnifiedTopology: true} ).then(()=>console.log('mongoDB Connected...'))
 
 app.use(express.json());
 app.listen(port, ()=>console.log("listening on port" + port + "   http://localhost:"+'3000'));
