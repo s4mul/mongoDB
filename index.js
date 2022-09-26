@@ -26,7 +26,7 @@ app.post('/getdata', (req, res)=>{
         }
     })
 
-    res.send("is there?");
+    res.send(sche.title + " is saved");
 })
 app.post('/putdata',(req,res)=>{//error is occur
     console.log("put data");
