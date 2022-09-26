@@ -3,8 +3,9 @@ const app = express();
 const port = 3000;
 const mongoose = require('mongoose');
 const { blackboard } = require('./Schema');
+const config = require('./config');
 //const bodyParser = require('body-parser');
-mongoose.connect('mongodb+srv://Sunwoo:s4mulsun@hellomongo.j8xwpyd.mongodb.net/test', {useNewUrlParser: true, useUnifiedTopology: true} ).then(()=>console.log('mongoDB Connected...'))
+mongoose.connect(config.mongoURL, {useNewUrlParser: true, useUnifiedTopology: true} ).then(()=>console.log('mongoDB Connected...'))
 
 app.use(express.json());
 app.listen(port, ()=>console.log("listening on port" + port + "   http://localhost:"+'3000'));
@@ -27,16 +28,30 @@ app.post('/getdata', (req, res)=>{
 
     res.send("is there?");
 })
-app.get('/putdata',(req,res)=>{//error is occur
+app.post('/putdata',(req,res)=>{//error is occur
     console.log("put data");
-    let sche = new blackboard;
-    sche.findOne({title: req.body.title}, function(err, blackboard){
+    console.log(req.body.title);
+    blackboard.findOne({title: req.body.title}, function(err, blackboard){
+    
         if(err){
             console.log(err);
+        }else if(!blackboard){
+            console.log("no title");
         }else{
-            console.log(sche);
-            req.send(sche);
+            console.log(blackboard);
+            res.json(blackboard);
         }
     })
+    return res;
+})
 
+app.get('/getalldata', (req, res)=>{
+    console.log("show all data");
+    //console.log(blackboard);
+    const data = blackboard.find({},(err,data)=>{
+        console.log(data);
+        res.json(data);
+    });
+    
+    return res;
 })
